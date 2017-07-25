@@ -1,9 +1,7 @@
-package utility.file;
+package startsmart.base.utility.file;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;

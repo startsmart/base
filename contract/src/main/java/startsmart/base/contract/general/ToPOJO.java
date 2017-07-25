@@ -1,4 +1,4 @@
-package utility.file;
+package startsmart.base.contract.general;
 
 import java.util.Map;
 
@@ -9,4 +9,5 @@ public interface ToPOJO<T> {
 
     public T convert(String[] data);
     public  T convert(String[] data, Map<String, Integer> headerPositionMap);
+
 }

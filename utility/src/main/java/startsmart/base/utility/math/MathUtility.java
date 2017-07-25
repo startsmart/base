@@ -1,4 +1,4 @@
-package utility.math;
+package startsmart.base.utility.math;
 
 import java.util.List;
 import java.util.Objects;

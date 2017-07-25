@@ -1,6 +1,6 @@
-package utility.file;
+package startsmart.base.utility.file;
 
-import java.io.*;
+import startsmart.base.contract.general.ToPOJO;
 
 /**
  * Created by sanjeev on 25/07/17.

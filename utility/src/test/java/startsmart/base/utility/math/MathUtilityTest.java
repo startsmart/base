@@ -1,4 +1,4 @@
-package utility.math;
+package startsmart.base.utility.math;
 
 /**
  * Created by sanjeev on 28/06/17.

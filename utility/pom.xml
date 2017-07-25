@@ -4,8 +4,15 @@
   <artifactId>utility</artifactId>
   <version>0.0.1</version>
   <name>Utility</name>
-  <description>The small math that we do all time!</description>
-<build>
+  <description>General helpers that aids application development </description>
+	<dependencies>
+		<dependency>
+			<groupId>startsmart.base</groupId>
+			<artifactId>contract</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+	</dependencies>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

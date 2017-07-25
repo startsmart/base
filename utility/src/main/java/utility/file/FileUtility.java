@@ -137,7 +137,7 @@ public final class FileUtility {
     }
 
 
-    public static Object saFeReadObjectFromFile(File f)  {
+    public static Object safeReadObjectFromFile(File f)  {
 
         try {
             return readObjectFromFile(f);
@@ -147,7 +147,7 @@ public final class FileUtility {
     }
 
     public static Object safeReadObjectFromFile(String filePath)  {
-        return saFeReadObjectFromFile(getFile(filePath));
+        return safeReadObjectFromFile(getFile(filePath));
     }
 
     public static List<File> filterFilesRecursive(String path, final String fileExtension){

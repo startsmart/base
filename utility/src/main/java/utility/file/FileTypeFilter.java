@@ -8,24 +8,26 @@ import java.io.FileFilter;
  */
 public class FileTypeFilter implements FileFilter {
 
-    private String fileType = null;
-    private boolean includeFolder = false; //Skip folders from filtering if false else otherwise;
+    private String fileType;
+    private boolean includeFolder;
 
     public FileTypeFilter()
     {
+        this.fileType = "";
+        this.includeFolder = false;
     }
 
     public FileTypeFilter(String fileType)
     {
-        this.fileType = fileType;
+        this();
+        this.fileType = fileType == null ? this.fileType : fileType;
     }
 
     public FileTypeFilter(String fileType, boolean includeFolder)
     {
-        this.fileType = fileType;
+        this(fileType);
         this.includeFolder = includeFolder;
     }
-
 
     @Override
     public boolean accept(File pathname) {

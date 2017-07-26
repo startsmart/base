@@ -1,5 +1,7 @@
 package startsmart.base.utility.file;
 
+import startsmart.base.constant.StringConstants;
+
 import java.io.File;
 import java.io.FileFilter;
 
@@ -13,7 +15,7 @@ public class FileTypeFilter implements FileFilter {
 
     public FileTypeFilter()
     {
-        this.fileType = "";
+        this.fileType = StringConstants.EMPTY;
         this.includeFolder = false;
     }
 

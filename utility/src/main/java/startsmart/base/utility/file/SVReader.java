@@ -23,7 +23,7 @@ public abstract class SVReader<T> {
     }
 
     public List<T> read(File file) throws IOException {
-        List<T> rData = new ArrayList<>();
+        List<T> rData = new LinkedList<>();
         List<String[]> data = readData(file);
         Map<String, Integer> headerPositionMap = null;
         for(String[] col : data) {
@@ -37,7 +37,7 @@ public abstract class SVReader<T> {
     }
 
     public List<T> readFileWithNoHeaderRow(File file) throws IOException {
-        List<T> rData = new ArrayList<>();
+        List<T> rData = new LinkedList<>();
         List<String[]> data = readData(file);
         for(String[] col : data) {
             rData.add(this.getConverter().convert(col));

@@ -20,7 +20,7 @@ public final class FileUtility {
         return Files.readAllLines(f.toPath()).stream().collect(Collectors.joining(System.lineSeparator()));
     }
 
-    public static String safeReadFile(String filePath) throws IOException{
+    public static String safeReadFile(String filePath) {
         return safeReadFile(getFile(filePath));
     }
 
@@ -49,7 +49,7 @@ public final class FileUtility {
     }
 
     public static boolean safeStoreObject(String fileName, Serializable object)
-            throws Exception {
+             {
         return safeStoreObject(getFile(fileName), object);
     }
 

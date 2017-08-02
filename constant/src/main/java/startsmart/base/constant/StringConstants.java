@@ -110,4 +110,12 @@ public final class StringConstants {
     public static final String PERIOD = DOT;
     public static final String FULL_STOP = DOT;
     public static final String QUESTION_MARK = "?";
+
+    public static final String TAB = "\t";
+    public static final String SPACE = " ";
+    public static final String NEW_LINE = "\n";
+    public static final String BACK_SPACE = "\b";
+    public static final String CARRIAGE_RETURN = "\r";
+    public static final String FORM_FEED = "\f";
+
 }

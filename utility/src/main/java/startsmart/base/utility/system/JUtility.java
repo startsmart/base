@@ -26,11 +26,6 @@ public class JUtility {
 
     public static void delay(long millis, PrintStream out)
     {
-        delayWithThreadLog(millis, out);
-    }
-
-    public static void delayWithThreadLog(long millis, PrintStream out)
-    {
         try
         {
             if(out != null) threadLog("Waiting for... " + DateUtility.getHumanReadableTime(millis), out);

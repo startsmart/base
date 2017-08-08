@@ -15,7 +15,11 @@ public class JUtility {
 
     public static void delay(long millis)
     {
-        delay(millis, null);
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void delay(long millis, boolean verbose)

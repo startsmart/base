@@ -1,5 +1,6 @@
 package startsmart.base.utility;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,11 +15,11 @@ public class MathUtility
 	 * @param number2 - a non null number value | if null {@link NullPointerException} will be thrown
 	 * @return ceil value of the mean of the given two numbers
 	 */
-	public static int meanHigh(final Number number1, final Number number2)
+	public static long meanHigh(final Number number1, final Number number2)
 	{
 		Number start = Objects.requireNonNull(number1);
 		Number end = Objects.requireNonNull(number2);
-		return  (int) Math.ceil((start.doubleValue() + end.doubleValue())/2.0d);
+		return  (long) Math.ceil((start.doubleValue() + end.doubleValue())/2.0d);
 	}
 
 	/**
@@ -154,4 +155,74 @@ public class MathUtility
 		}
 		return sum;
 	}
+
+	/**
+	 * Returns the greatest common divisor for the given list of numbers.
+	 * @param a input list of numbers
+	 * @return GCD of the given numbers | null if the given number list is null or empty
+	 */
+	public static Long gcd(long... a)
+	{
+		if(a == null || a.length == 0)
+			return null;
+		Long gcd = a[0]; //GCD[k] = k; GCD of single numbered list say k is k
+		for(int i=1; i < a.length; i++)
+		{
+			if(a[i] == 1 || gcd == 1)
+				return 1L; //GCD[x,y,z,1,....n] = 1; GCD of any number list containing 1 is 1 or containing a sublist whose GCD is 1 is also 1
+			gcd = gcd(gcd, a[i]);
+		}
+		return gcd;
+	}
+
+	private static Long gcd(long a, long b)
+	{
+		return b == 0 ? a : gcd(b, a%b);
+	}
+
+	public static List<List<Boolean>> generateBooleanTable(int operandCount)
+	{
+		List<List<Boolean>> result = new ArrayList<List<Boolean>>();
+		if(operandCount == 0)
+		{
+			return null;
+		}
+		if(operandCount == 1)
+		{
+			List<Boolean> tresult = new ArrayList<>();
+			tresult.add(true);
+			tresult.add(false);
+			result.add(tresult);
+		}
+		else
+		{
+			for(int i = 1; i <= Math.pow(2, operandCount); i++)
+			{
+				List<Boolean> tresult = generateBooleanTableRow(i, operandCount);
+				result.add(tresult);
+			}
+		}
+		return result;
+	}
+
+
+	private static List<Boolean> generateBooleanTableRow(int row, int operandCount)
+	{
+		List<Boolean> tresult = new ArrayList<>();
+		for(int i = 1; i <= operandCount; i++)
+		{
+			tresult.add(getBooleanTableColumnValue(i, row, operandCount));
+		}
+		return tresult;
+	}
+
+	private static boolean getBooleanTableColumnValue(int col, int row, int operandCount)
+	{
+		int a = (int) (Math.pow(2, operandCount) / Math.pow(2, col));
+		int b = Math.floorDiv(row, a) % 2;
+		return b != 0;
+	}
+
+
+
 }

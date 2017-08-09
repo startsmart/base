@@ -1,5 +1,7 @@
 package startsmart.base.utility.file;
 
+import startsmart.base.constant.StringConstants;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -244,6 +246,37 @@ public final class FileUtility {
         return false;
     }
 
+    public static void splitTextFile(File f, int maxLine) throws FileNotFoundException, IOException
+    {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(f))))
+        {
+            int count = 0;
+            String line;
+            StringBuilder builder = new StringBuilder();
+            String extension = f.getName().contains(StringConstants.DOT) ?
+                    f.getName().substring(f.getName().lastIndexOf(StringConstants.DOT)) : StringConstants.EMPTY;
+            while((line = reader.readLine()) != null)
+            {
+                count++;
+                builder.append(line);
+                builder.append(System.lineSeparator());
+                if(count%maxLine == 0)
+                {
+                    createSplit(builder, f, extension, count);
+                    builder = new StringBuilder();
+                }
+            }
+            createSplit(builder, f, extension, count);
+        }
+    }
+
+    private static void createSplit(StringBuilder builder, File f, String extension, int count) throws IOException {
+        if(builder.length() != 0){
+            File out = new File(f.getAbsolutePath().replace(extension, "_" + count + extension));
+            Files.write(out.toPath(), builder.toString().getBytes());
+        }
+    }
+
     private static void deleteFolder(File folder) {
         if (folder.isDirectory()) {
             File[] fList = folder.listFiles();
@@ -262,4 +295,6 @@ public final class FileUtility {
     private static File getFile(String filePath) {
         return new File(filePath);
     }
+
+
 }

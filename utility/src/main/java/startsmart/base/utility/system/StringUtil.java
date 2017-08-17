@@ -7,6 +7,19 @@ import startsmart.base.constant.StringConstants;
  */
 public class StringUtil {
 
+    public static boolean containsIgnoreCase(String source, String assertStr)
+    {
+        if(source == null && assertStr == null)
+            return true;
+        if(source != null)
+        {
+            if(assertStr == null)
+                return false;
+            return source.toUpperCase().contains(assertStr.toUpperCase());
+        }
+        return false;
+    }
+
     public static String substringBetween(String inputStr, String open,
                                           String close) {
         if ((inputStr == null) || (open == null) || (close == null)) {

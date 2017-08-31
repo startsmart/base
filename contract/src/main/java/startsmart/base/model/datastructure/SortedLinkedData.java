@@ -3,7 +3,7 @@ package startsmart.base.model.datastructure;
 /**
  * Created by sanjeev on 30/08/17.
  */
-public abstract class SortedLinkedData<T extends Comparable> {
+public abstract class SortedLinkedData<T extends Comparable>{
 
     private Node<T> head;
     private int maxSize;
@@ -18,6 +18,7 @@ public abstract class SortedLinkedData<T extends Comparable> {
     }
 
     public void insert(T value) {
+        //TODO optimize for linear insertion and resizing
         if (this.head == null) {
             this.head = new Node(value);
         } else {

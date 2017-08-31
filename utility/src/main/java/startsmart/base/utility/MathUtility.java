@@ -224,5 +224,33 @@ public class MathUtility
 	}
 
 
+	public static long lengthOfProduct(long... numbers){
+		double logSum = 0;
+		for(Long number : numbers){
+			logSum = logSum + Math.log10(number);
+		}
+		return (long) Math.floor(logSum) + 1L;
+	}
+
+	public static long max(long... numbers) {
+		Long max = Long.MIN_VALUE;
+		for(long number : numbers){
+			if(number > max){
+				max = number;
+			}
+		}
+		return max;
+	}
+
+	public static long min(long... numbers) {
+		Long min = Long.MAX_VALUE;
+		for(long number : numbers){
+			if(number < min){
+				min = number;
+			}
+		}
+		return min;
+	}
+
 
 }

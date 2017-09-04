@@ -18,6 +18,7 @@ public class Node<T> {
     }
 
     public void setPrevious(Node previous) {
+        checkCyclicInsertion(previous);
         this.previous = previous;
     }
 
@@ -34,27 +35,8 @@ public class Node<T> {
     }
 
     public void setNext(Node next) {
+        checkCyclicInsertion(next);
         this.next = next;
-    }
-
-    public void addBefore(Node node){
-        checkCyclicInsertion(node);
-        node.previous = this.previous;
-        node.next = this;
-        this.previous = node;
-        if(node.previous != null){
-            node.previous.next = node;
-        }
-    }
-
-    public void addAfter(Node node){
-        checkCyclicInsertion(node);
-        node.next = this.next;
-        node.previous = this;
-        this.next = node;
-        if(node.next != null){
-            node.next.previous = node;
-        }
     }
 
     private void checkCyclicInsertion(Node node){

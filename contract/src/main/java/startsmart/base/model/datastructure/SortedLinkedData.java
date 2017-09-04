@@ -18,14 +18,14 @@ public abstract class SortedLinkedData<T extends Comparable>{
     }
 
     public void insert(T value) {
-        //TODO optimize for linear insertion and resizing
         if (this.head == null) {
             this.head = new Node(value);
+            this.tail = this.head;
+            this.size++;
         } else {
-            add(this.head, new Node(value));
+            add(new Node(value));
+            resize();
         }
-        resetHead();
-        resize();
     }
 
     public T getHeadValue() {
@@ -55,7 +55,16 @@ public abstract class SortedLinkedData<T extends Comparable>{
         return getNNode(index).getValue();
     }
 
-    protected void add(Node current, Node newNode) {
+    protected void add(Node<T> newNode){
+        int tCompare = compare(tail, newNode);
+        if(tCompare > 0){
+            this.add(this.head, newNode);
+        } else if(tCompare != 0 && this.size < this.maxSize) {
+            linkAfter(tail, newNode);
+        }
+    }
+
+    protected void add(Node<T> current, Node<T> newNode) {
         int compare = compare(current, newNode);
         if (compare > 0) {
             addBefore(current, newNode);
@@ -64,38 +73,60 @@ public abstract class SortedLinkedData<T extends Comparable>{
         }
     }
 
-    protected void addBefore(Node current, Node newNode) {
+    protected void addBefore(Node<T> current, Node<T> newNode) {
         int compare;
         if (current.previous() == null || (compare = compare(current.previous(), newNode)) < 0) {
-            current.addBefore(newNode);
+            linkBefore(current, newNode);
         } else if (compare > 0) {
             addBefore(current.previous(), newNode);
         }
     }
 
-    protected void addAfter(Node current, Node newNode) {
+    protected void addAfter(Node<T> current, Node<T> newNode) {
         int compare;
         if (current.next() == null || (compare = compare(current.next(), newNode)) > 0) {
-            current.addAfter(newNode);
+            linkAfter(current, newNode);
         } else if (compare < 0) {
             addAfter(current.next(), newNode);
         }
     }
 
-    protected void resize() {
-        int tDepth = 1;
-        Node current = this.head;
-        while (tDepth < this.maxSize) {
-            if (current.next() == null) {
-                break;
-            } else {
-                tDepth++;
-                current = current.next();
-            }
+    protected void linkBefore(Node<T> current, Node<T> newNode){
+        newNode.setPrevious(current.previous());
+        newNode.setNext(current);
+        current.setPrevious(newNode);
+        if(newNode.previous() != null){
+            newNode.previous().setNext(newNode);
         }
-        this.tail = current;
-        this.tail.setNext(null);
-        this.size = tDepth;
+        if(current == head){
+            head = newNode;
+        }
+        this.size++;
+    }
+
+    protected void linkAfter(Node<T> current, Node<T> newNode){
+        newNode.setNext(current.next());
+        newNode.setPrevious(current);
+        current.setNext(newNode);
+        if(newNode.next() != null){
+            newNode.next().setPrevious(newNode);
+        }
+        if(current == tail){
+            tail = newNode;
+        }
+        this.size++;
+    }
+
+
+    protected void resize() {
+        if(this.size > this.maxSize){
+            Node current = this.tail;
+            this.tail = current.previous();
+            this.tail.setNext(null);
+            current.setNext(null);
+            current.setPrevious(null);
+            this.size--;
+        }
     }
 
     protected void resetHead() {

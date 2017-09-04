@@ -1,5 +1,11 @@
 package startsmart.base.utility;
 
+import startsmart.base.model.datastructure.ReverseSortedLinkedList;
+import startsmart.base.model.datastructure.ReverseSortedLinkedSet;
+import startsmart.base.model.datastructure.SortedLinkedData;
+import startsmart.base.model.datastructure.SortedLinkedList;
+import startsmart.base.model.datastructure.SortedLinkedSet;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -253,4 +259,28 @@ public class MathUtility
 	}
 
 
+	public static long nthSmallestNumber(int n, Number... numbers){
+		boolean sortStraight = (n <= numbers.length/2);
+		SortedLinkedData<Long> set = sortStraight ? new SortedLinkedSet<>(n): new ReverseSortedLinkedSet<>((numbers.length - n) + 1);
+		return nthSmallestNumber(n, set, numbers);
+	}
+
+	public static long nthSmallestNumberWithDuplicate(int n, Number... numbers){
+		boolean sortStraight = (n <= numbers.length/2);
+		SortedLinkedData<Long> set = sortStraight ? new SortedLinkedList<>(n): new ReverseSortedLinkedList<>((numbers.length - n) + 1);
+		return nthSmallestNumber(n, set, numbers);
+	}
+
+	private static long nthSmallestNumber(int n, SortedLinkedData<Long> set, Number... numbers){
+		if(numbers == null)
+			throw new ArithmeticException("Number list cant be null");
+		if(n < 1)
+			throw new ArithmeticException("n value should be positive");
+		if(n > numbers.length)
+			throw new ArithmeticException("n value is greater than total numbers");
+		for(Number number : numbers){
+			set.insert(number.longValue());
+		}
+		return set.getTailValue();
+	}
 }

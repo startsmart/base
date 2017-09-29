@@ -6,6 +6,7 @@ import startsmart.base.model.datastructure.SortedLinkedData;
 import startsmart.base.model.datastructure.SortedLinkedList;
 import startsmart.base.model.datastructure.SortedLinkedSet;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -273,7 +274,7 @@ public class MathUtility
 
 	private static long nthSmallestNumber(int n, SortedLinkedData<Long> set, Number... numbers){
 		if(numbers == null)
-			throw new ArithmeticException("Number list cant be null");
+			throw new ArithmeticException("Number list can't be null");
 		if(n < 1)
 			throw new ArithmeticException("n value should be positive");
 		if(n > numbers.length)
@@ -283,4 +284,20 @@ public class MathUtility
 		}
 		return set.getTailValue();
 	}
+
+	public static BigInteger factorial(long n){
+		return factorial(BigInteger.valueOf(n));
+	}
+
+	public static BigInteger factorial(BigInteger f){
+		if(f == null)
+			throw new ArithmeticException("Number can't be null");
+		BigInteger i = BigInteger.ONE;
+		BigInteger fact = new BigInteger("1");
+		for(; i.compareTo(f) <= 0; i=i.add(BigInteger.ONE)){
+			fact = fact.multiply(i);
+		}
+		return fact;
+	}
+
 }

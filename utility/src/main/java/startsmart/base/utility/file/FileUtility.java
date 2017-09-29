@@ -50,6 +50,15 @@ public final class FileUtility {
         Files.write(f.toPath(), content.getBytes(),  StandardOpenOption.CREATE,StandardOpenOption.WRITE, StandardOpenOption.APPEND);
     }
 
+    public static boolean safeAppendToFile(String content, String filePath) {
+        try{
+            appendToFile(content, getFile(filePath));
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
     public static boolean safeStoreObject(String fileName, Serializable object)
              {
         return safeStoreObject(getFile(fileName), object);
@@ -101,6 +110,10 @@ public final class FileUtility {
         } catch (FileNotFoundException e){
             return false;
         }
+    }
+
+    public static void ensureParentDirectories(String filePath){
+        ensureParentDirectories(getFile(filePath));
     }
 
     public static void ensureParentDirectories(File f) {
@@ -183,6 +196,18 @@ public final class FileUtility {
         }
     }
 
+    /**
+     * Deletes the folder content recursively. Run time exception will be thrown in the event of
+     * Exception.
+     *
+     * @param folderPath
+     *            Absolute path of the folder whose content needs to be deleted.
+     * @return true if and only if the all the content of the directory is
+     *         successfully deleted; false otherwise
+     */
+    public static boolean deleteContentRecursively(String folderPath){
+        return deleteContentRecursively(folderPath, false);
+    }
 
     /**
      * Deletes the folder content recursively.The method is designed to handle

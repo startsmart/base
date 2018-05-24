@@ -10,4 +10,8 @@ public class CSVReader<T> extends SVReader<T> {
     public CSVReader(ToPOJO<T> converter) {
         super(System.lineSeparator(), ",", converter);
     }
+
+    public CSVReader(ToPOJO<T> converter, String rowSeparator) {
+        super(rowSeparator, ",", converter);
+    }
 }
